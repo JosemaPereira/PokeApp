@@ -1,26 +1,26 @@
 import React from 'react';
-import './App.css';
-import { Home } from './components/home';
-import { Detail } from './components/detail';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useRouteMatch
-} from 'react-router-dom';
+import { HomeContainer } from './containers/home';
+import { DetailContainer } from './containers/detail';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { configureStore } from './configureStore';
+import { Provider } from 'react-redux';
+import { history } from './history';
+const store = configureStore({}, history);
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          <Home></Home>
-        </Route>
-        <Route path='/pokemon'>
-          <Detail />
-        </Route>
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <HomeContainer></HomeContainer>
+          </Route>
+          <Route path='/pokemon'>
+            <DetailContainer />
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
